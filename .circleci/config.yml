@@ -1,5 +1,5 @@
 # Orb 'circleci/maven@0.0.12' resolved to 'circleci/maven@0.0.12'
-version: 2.1
+version: 2
 jobs:
   maven/test:
     docker:
@@ -27,7 +27,7 @@ workflows:
   maven_test:
     jobs:
       - maven/test
-  version: 2.1
+  version: 2
 
 # Original config.yml file:
 # version: 2.1
