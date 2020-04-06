@@ -1,0 +1,13 @@
+guru/springframework/sfgpetclinic/ControllerTests.class
+guru/springframework/sfgpetclinic/CustomArgsProvider.class
+guru/springframework/sfgpetclinic/fauxspring/ModelMapImpl.class
+guru/springframework/sfgpetclinic/ModelRepeatedTests.class
+guru/springframework/sfgpetclinic/services/springdatajpa/OwnerSDJpaServiceTest.class
+guru/springframework/sfgpetclinic/ModelTests.class
+guru/springframework/sfgpetclinic/model/PersonRepeatedTests.class
+guru/springframework/sfgpetclinic/junitextensions/TimingExtension.class
+guru/springframework/sfgpetclinic/model/PersonTest.class
+guru/springframework/sfgpetclinic/services/springdatajpa/PetTypeSDJpaServiceIT.class
+guru/springframework/sfgpetclinic/model/OwnerTest.class
+guru/springframework/sfgpetclinic/controllers/VetControllerTest.class
+guru/springframework/sfgpetclinic/controllers/IndexControllerTest.class

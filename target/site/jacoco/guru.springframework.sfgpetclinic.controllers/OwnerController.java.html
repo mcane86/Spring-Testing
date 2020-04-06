@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OwnerController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">testing-java-junit5</a> &gt; <a href="index.source.html" class="el_package">guru.springframework.sfgpetclinic.controllers</a> &gt; <span class="el_source">OwnerController.java</span></div><h1>OwnerController.java</h1><pre class="source lang-java linenums">package guru.springframework.sfgpetclinic.controllers;
+
+import guru.springframework.sfgpetclinic.fauxspring.BindingResult;
+import guru.springframework.sfgpetclinic.fauxspring.Model;
+import guru.springframework.sfgpetclinic.fauxspring.ModelAndView;
+import guru.springframework.sfgpetclinic.fauxspring.WebDataBinder;
+import guru.springframework.sfgpetclinic.model.Owner;
+import guru.springframework.sfgpetclinic.services.OwnerService;
+
+import javax.validation.Valid;
+import java.util.List;
+
+
+public class OwnerController {
+    private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = &quot;owners/createOrUpdateOwnerForm&quot;;
+
+    private final OwnerService ownerService;
+
+<span class="nc" id="L19">    public OwnerController(OwnerService ownerService) {</span>
+<span class="nc" id="L20">        this.ownerService = ownerService;</span>
+<span class="nc" id="L21">    }</span>
+
+    public void setAllowedFields(WebDataBinder dataBinder) {
+<span class="nc" id="L24">        dataBinder.setDisallowedFields(&quot;id&quot;);</span>
+<span class="nc" id="L25">    }</span>
+
+    public String findOwners(Model model){
+<span class="nc" id="L28">        model.addAttribute(&quot;owner&quot;, new Owner(null, null, null));</span>
+<span class="nc" id="L29">        return &quot;owners/findOwners&quot;;</span>
+    }
+
+    public String processFindForm(Owner owner, BindingResult result, Model model){
+        // allow parameterless GET request for /owners to return all records
+<span class="nc bnc" id="L34" title="All 2 branches missed.">        if (owner.getLastName() == null) {</span>
+<span class="nc" id="L35">            owner.setLastName(&quot;&quot;); // empty string signifies broadest possible search</span>
+        }
+
+        // find owners by last name
+<span class="nc" id="L39">        List&lt;Owner&gt; results = ownerService.findAllByLastNameLike(&quot;%&quot;+ owner.getLastName() + &quot;%&quot;);</span>
+
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        if (results.isEmpty()) {</span>
+            // no owners found
+<span class="nc" id="L43">            result.rejectValue(&quot;lastName&quot;, &quot;notFound&quot;, &quot;not found&quot;);</span>
+<span class="nc" id="L44">            return &quot;owners/findOwners&quot;;</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">        } else if (results.size() == 1) {</span>
+            // 1 owner found
+<span class="nc" id="L47">            owner = results.get(0);</span>
+<span class="nc" id="L48">            return &quot;redirect:/owners/&quot; + owner.getId();</span>
+        } else {
+            // multiple owners found
+<span class="nc" id="L51">            model.addAttribute(&quot;selections&quot;, results);</span>
+<span class="nc" id="L52">            return &quot;owners/ownersList&quot;;</span>
+        }
+    }
+
+    public ModelAndView showOwner(Long ownerId) {
+<span class="nc" id="L57">        ModelAndView mav = new ModelAndView(&quot;owners/ownerDetails&quot;);</span>
+<span class="nc" id="L58">        mav.addObject(ownerService.findById(ownerId));</span>
+<span class="nc" id="L59">        return mav;</span>
+    }
+
+    public String initCreationForm(Model model) {
+<span class="nc" id="L63">        model.addAttribute(&quot;owner&quot;, new Owner(null, null, null));</span>
+<span class="nc" id="L64">        return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;</span>
+    }
+
+    public String processCreationForm(@Valid Owner owner, BindingResult result) {
+<span class="nc bnc" id="L68" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
+<span class="nc" id="L69">            return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;</span>
+        } else {
+<span class="nc" id="L71">            Owner savedOwner =  ownerService.save(owner);</span>
+<span class="nc" id="L72">            return &quot;redirect:/owners/&quot; + savedOwner.getId();</span>
+        }
+    }
+
+    public String initUpdateOwnerForm(Long ownerId, Model model) {
+<span class="nc" id="L77">        model.addAttribute(ownerService.findById(ownerId));</span>
+<span class="nc" id="L78">        return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;</span>
+    }
+
+    public String processUpdateOwnerForm(@Valid Owner owner, BindingResult result, Long ownerId) {
+<span class="nc bnc" id="L82" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
+<span class="nc" id="L83">            return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;</span>
+        } else {
+<span class="nc" id="L85">            owner.setId(ownerId);</span>
+<span class="nc" id="L86">            Owner savedOwner = ownerService.save(owner);</span>
+<span class="nc" id="L87">            return &quot;redirect:/owners/&quot; + savedOwner.getId();</span>
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

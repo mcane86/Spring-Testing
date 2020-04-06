@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Pet.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">testing-java-junit5</a> &gt; <a href="index.source.html" class="el_package">guru.springframework.sfgpetclinic.model</a> &gt; <span class="el_source">Pet.java</span></div><h1>Pet.java</h1><pre class="source lang-java linenums">package guru.springframework.sfgpetclinic.model;
+
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
+
+public class Pet extends BaseEntity{
+
+    private String name;
+    private PetType petType;
+    private Owner owner;
+    private LocalDate birthDate;
+<span class="nc" id="L14">    private Set&lt;Visit&gt; visits = new HashSet&lt;&gt;();</span>
+
+<span class="nc" id="L16">    public Pet() {</span>
+<span class="nc" id="L17">    }</span>
+
+    public Pet(Long id) {
+<span class="nc" id="L20">        super(id);</span>
+<span class="nc" id="L21">    }</span>
+
+    public String getName() {
+<span class="nc" id="L24">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="nc" id="L28">        this.name = name;</span>
+<span class="nc" id="L29">    }</span>
+
+    public PetType getPetType() {
+<span class="nc" id="L32">        return petType;</span>
+    }
+
+    public void setPetType(PetType petType) {
+<span class="nc" id="L36">        this.petType = petType;</span>
+<span class="nc" id="L37">    }</span>
+
+    public Owner getOwner() {
+<span class="nc" id="L40">        return owner;</span>
+    }
+
+    public void setOwner(Owner owner) {
+<span class="nc" id="L44">        this.owner = owner;</span>
+<span class="nc" id="L45">    }</span>
+
+    public LocalDate getBirthDate() {
+<span class="nc" id="L48">        return birthDate;</span>
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+<span class="nc" id="L52">        this.birthDate = birthDate;</span>
+<span class="nc" id="L53">    }</span>
+
+    public Set&lt;Visit&gt; getVisits() {
+<span class="nc" id="L56">        return visits;</span>
+    }
+
+    public void setVisits(Set&lt;Visit&gt; visits) {
+<span class="nc" id="L60">        this.visits = visits;</span>
+<span class="nc" id="L61">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
